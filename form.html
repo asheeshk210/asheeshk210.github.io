@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+  span {
+            color: red;
+        }
+    </style>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>enter your personal information</h1>
+        <form action="" name="myForm">
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <label for="">name</label>
+                    <input type="text" name="uName" id="nam" oninput="checkName()" ><span id="uNameOutput"></span><br>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <label for="">email</label>
+                    <input type="email" name="uEmail" id="mail" oninput="checkEmail()"><span id="uEmailOutput"></span><br>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <label for="">phone</label>
+                    <input type="text" name="uPhone" id="phone" oninput="checkPhone()"><span id="uPhoneOutput"></span><br>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-3">
+                    <label for=""></label>
+                    <button type="button" id="subbtn" class="btn btn-primary" data-toggle="modal"
+                        data-target="#mydata">Submit</button>
+
+                </div>
+            </div>
+
+        </form>
+        <!--*************************************Modal Start*****************************************************-->
+        <div class="modal fade" id="mydata" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4>You successfully entered your data:</h4>
+                    </div>
+                    <div class="modal-body">
+                        <p id="x"></p>
+                        <p id="y"></p>
+                        <p id="z"></p>
+
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var correct_way = /^[A-Za-z]+$/;
+        var uNameOutput = document.getElementById('uNameOutput');
+        var uEmailOutput = document.getElementById('uEmailOutput');
+        var uPhoneOutput = document.getElementById('uPhoneOutput');
+
+        var uName = document.myForm.uName;
+        var uEmail = document.myForm.uEmail;
+        var uPhone = document.myForm.uPhone;
+
+
+
+        function checkName() {
+            if (uName.value.length == "") {
+                uNameOutput.innerHTML = "*Please fill username";
+                uName.style.backgroundColor = "#f08080";
+            }
+
+
+            else if (uName.value.length < 3) {
+                uNameOutput.innerHTML = "please enter at least 3 characters";
+                uName.style.backgroundColor = "#f08080";
+                //uName.style.borderColor="red";  
+            }
+            else if (uName.value.length == 3) {
+
+                uName.style.backgroundColor = "#00eb00";
+
+            }
+            else if (uName.value.length > 20) {
+                uNameOutput.innerHTML = "please enter less than 20 characters";
+                uName.style.backgroundColor = "#f08080";
+            }
+            else if (uName.value.match(correct_way)) {
+                uNameOutput.innerHTML = "";
+                uName.style.backgroundColor = "#00eb00";
+
+            }
+            else {
+                uNameOutput.innerHTML = "*only alphabete are allow";
+                uName.style.backgroundColor = "#f08080";
+                return false;
+
+            }
+            document.getElementById("x").innerHTML = "your name is :" + uName.value;
+
+        }
+        function checkEmail() {
+            if (uEmail.value.length == "") {
+                uEmailOutput.innerHTML = "*Please fill email";
+                uEmail.style.backgroundColor = "#f08080";
+                return false;
+            }
+            if (uEmail.value.indexOf('@') <= 0) {
+                uEmailOutput.innerHTML = "*Invalid @ position";
+                uEmail.style.backgroundColor = "#f08080";
+                return false;
+            }
+            if ((uEmail.value.charAt(uEmail.value.length - 4) != '.') && (uEmail.value.charAt(uEmail.value.length - 3) != '.')) {
+                uEmailOutput.innerHTML = "*Invalid . position";
+                uEmail.style.backgroundColor = "#f08080";
+                return false;
+            }
+            else {
+
+                uEmailOutput.innerHTML = "";
+                uEmail.style.backgroundColor = "#00eb00";
+
+
+            }
+            document.getElementById("y").innerHTML = "your email id is :" + uEmail.value;
+        }
+        function checkPhone() {
+            if (uPhone.value.length == "") {
+                uPhoneOutput.innerHTML = "*Please fill phone no.";
+                uPhone.style.backgroundColor = "#f08080";
+                return false;
+            }
+            if (isNaN(uPhone.value)) {
+                uPhoneOutput.innerHTML = "*Please enter numeric value";
+                uPhone.style.backgroundColor = "#f08080";
+                return false;
+            }
+            if (uPhone.value.length < 10) {
+                uPhoneOutput.innerHTML = "*phone no. must be 10 digits";
+                uPhone.style.backgroundColor = "#f08080";
+                return false;
+            }
+            if (uPhone.value.length > 10) {
+                uPhoneOutput.innerHTML = "*phone no. must be 10 digits";
+                uPhone.style.backgroundColor = "#f08080";
+                return false;
+            }
+            if ((uPhone.value.charAt(0) != 9) && (uPhone.value.charAt(0) != 8) && (uPhone.value.charAt(0) != 7)) {
+                uPhoneOutput.innerHTML = "*phone no. must start with 9,8 or 7";
+                uPhone.style.backgroundColor = "#f08080";
+                return false;
+            }
+            else {
+                uPhoneOutput.innerHTML = "";
+                uPhone.style.backgroundColor = "#00eb00";
+            }
+            document.getElementById("z").innerHTML = "your phone no. is :" + uPhone.value;
+        }
+
+
+    </script>
+</body>
+
+</html>
